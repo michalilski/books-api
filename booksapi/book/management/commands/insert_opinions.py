@@ -5,6 +5,11 @@ from book.models import Book, Opinion
 
 
 class Command(BaseCommand):
+    """Command class for opinion insertion.
+
+    This command lets user to insert opinion to database
+    using CSV file.
+    """
     help = "Inserts opinions from CSV file. "
     help += "Data format: ISBN;Ocena;Opis"
 
@@ -14,18 +19,26 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        #filename if path to file passed by argument "filename" added in add_arguments method
         filename = options["filename"]
         try:
             with open(filename, "r") as file:
+                #creating data frame using pandas
                 df = pd.read_csv(file, sep=";")
         except:
             raise CommandError(f"Could not read file {filename}.")
 
-        for _, book in df.iterrows():
+        for _, opinion in df.iterrows():
+            #getting book with current opinion if exists
+            try:
+                book = Book.objects.get(isbn=opinion["ISBN"])
+            except:
+                raise Book.DoesNotExist()
+
             opinion = Opinion(
-                isbn=Book.objects.get(isbn=book["ISBN"]),
-                rate=book["Ocena"],
-                description=book["Opis"],
+                isbn=book,
+                rate=opinion["Ocena"],
+                description=opinion["Opis"],
             )
             opinion.save()
 
