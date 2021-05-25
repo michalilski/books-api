@@ -1,7 +1,7 @@
 # Books REST API using Django
 
 ## Overview
-This project provides API for searching books using Django. API lets user to find books with opionions about them making simple Http GET request.
+This project provides RESR API for searching books using Django. API lets user to find books with opinions about them making simple HTTP GET request.
 
 ## Data insertion
 To add Book models use command:  
@@ -20,6 +20,7 @@ Important - you can't add opinion to book not existing in database, so remember 
 ## API
 To get book by title make GET request as  
 <host\>:<port\>/book/?title=<title\>  
+e.g.  http://127.0.0.1:8000/book/?title=Ryzyko%20gangstera  
 where title is your book title passed as query parameter. You may also pass just beginning of book title so response will return all results starting with passed prefix. This feature may be used e.g. in searching bar serving hints after each typed character.  
 Important - passing empty <title\> will return empty result.
 
