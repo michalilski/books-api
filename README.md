@@ -19,8 +19,8 @@ Important - you can't add opinion to book not existing in database, so remember 
 
 ## API
 To get book by title make GET request as  
-<host\>:<port\>/book/title=<title\>  
-where title is your book title. You may also pass just beginning of book title so response will return all results starting with passed prefix. This feature may be used e.g. in searching bar serving hints after each typed character.  
+<host\>:<port\>/book/?title=<title\>  
+where title is your book title passed as query parameter. You may also pass just beginning of book title so response will return all results starting with passed prefix. This feature may be used e.g. in searching bar serving hints after each typed character.  
 Important - passing empty <title\> will return empty result.
 
 ## Run locally
